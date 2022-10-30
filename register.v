@@ -3,7 +3,6 @@ module register(
   input wire[1:0] select,
   input reg_clk;
   input wire rd, wr,
-  
   input wire[7:0] data_in,
   output reg[7:0] data_out
 );
