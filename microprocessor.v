@@ -3,4 +3,5 @@ module microprocessor(
     output reg
 );
     wire buffer;
+    
 endmodule
