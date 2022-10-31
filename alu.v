@@ -29,8 +29,8 @@ module alu(
   always @(in1 or in2 or mode)
 	 begin
        case(mode)
-        3'bxxx : {flag_carry, out} <= in1 + in2;		//sum
-        3'bxxx : {flag_carry, out} <= in1 - in2;		//diff
+        3'b000 : {flag_carry, out} <= in1 + in2;		//sum
+        3'b001 : {flag_carry, out} <= in1 - in2;		//diff
         3'bxxx : // comp
          begin
            flag_zero <= (in1==in2);
