@@ -1,35 +1,34 @@
 // Code your design here
 module register(
   input wire[1:0] select,
-  input reg_clk;
-  input wire rd, wr,
+  input reg_clk,
+  input RF_we,
+	input Acc_we,
   input wire[7:0] data_in,
-  output reg[7:0] data_out
+  input wire[7:0] Acc_in,
+  output reg[7:0] data_out,
+  output reg[7:0] Acc_out
 );
   reg[7:0] A, B, C, D;
   
   always@(posedge reg_clk)
     begin
-      if(rd)
-        begin
-          case(select)
-            begin
-       	 	  2'b00: data_out <= A;
-              2'b01: data_out <= B;
-       	 	  2'b10: data_out <= C;
-              2'b11: data_out <= D;
-            end
-        end
-
-      if(wr)
-        begin
-          case(select)
-            begin
-       	 	  2'b00: A <= data_in;
-              2'b01: B <= data_in;
-       	 	  2'b10: C <= data_in;
-              2'b11: D <= data_in;
-            end
-        end
+      case(select)
+        2'b00: A <= (RF_we ? data_in: A); 
+        2'b01: B <= (RF_we ? data_in: B);
+     	  2'b10: C <= (RF_we ? data_in: C);
+        2'b11: D <= (RF_we ? data_in: D);
+      endcase
+      Acc <= Acc_we ? Acc_in : Acc;
     end
+    always @(select or Acc or A or B or C or D)
+      begin
+        case(select)  
+       	 	2'b00: data_out <= A;
+          2'b01: data_out <= B;
+       	  2'b10: data_out <= C;
+          2'b11: data_out <= D;
+        endcase
+        Acc_out <= Acc;
+      end
 endmodule

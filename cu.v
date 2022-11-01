@@ -35,6 +35,7 @@ module cu(
 				MBR_mux=0;
 				data_imm = 0;
 				RAM_in=2'b00;
+				mode=3'b111;
 				next_state=s1;
 			end
 		s1:
@@ -81,7 +82,7 @@ module cu(
 						end
 					4'b0101: // SB
 						begin
-							next_state = s10;
+							next_state = s8;
 						end
 					4'b1101: // SBI
 						begin
@@ -141,23 +142,52 @@ module cu(
 			end
 		s8: // SUM
 			begin
-				Acc_we=1;
-				ALU_mux=1;
-				Select = CU_in[1:0];
-				mode = 3'b000;
-				nextstate = s0;
+				Acc_we = 1;
+				ALU_out_mux = 1;
+				Select = CU_in[3:2];
+				nextstate = s21;
 			end
-
 		s20: // From S6 (MR)
 			begin
-				RF_we=1;
-				Acc_we=0;
+				RF_we = 1;
+				Acc_we = 0;
 				RF_mux= 1;
 				ALU_out_mux = 0;
 				Select = CU_in[3:2];
 				nextstate = s0;
 			end
-				
+		s21: // From S8 (SUM)
+			begin
+				Acc_we = 1;
+				ALU_mux = 1;
+				ALU_out_mux = 0;
+				Select = CU_in[1:0];
+				case(CU_in[7:4])
+					4'b0100: // SUM
+						mode = 3'b000;
+					4'b0101: // SB
+						mode = 3'b001;	
+					4'b0111: // CM
+						mode = 3'b010;
+					4'b0110: // ANR
+						mode = 3'b011;
+					4'b1000: // ORR
+						mode = 3'b100;
+					4'b1010: // XRR
+						mode = 3'b101;
+				endcase
+				nextstate = s22;
+			end
+		s22: // From S21 (SUM)
+			begin
+				Acc_we = 0;
+				ALU_mux = 0;
+				RF_we = 1;
+				RF_mux = 1;
+				Select = CU_in[3:2];
+				mode = 3'b111;
+				nextstate = s0;
+			end
     endcase
   end
 endmodule

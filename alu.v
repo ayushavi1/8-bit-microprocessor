@@ -2,7 +2,7 @@
 module alu(
   input wire[7:0] in1, 
   input wire[7:0] in2, 
-  input wire[3:0] mode,
+  input wire[2:0] mode,
   input wire clk,
   
   output reg[7:0] out,
@@ -28,20 +28,20 @@ module alu(
   // modes for ALU
   always @(in1 or in2 or mode)
 	 begin
-       case(mode)
+      case(mode)
         3'b000 : {flag_carry, out} <= in1 + in2;		//sum
         3'b001 : {flag_carry, out} <= in1 - in2;		//diff
-        3'bxxx : // comp
+        3'b010 : // comp
          begin
            flag_zero <= (in1==in2);
            flag_carry <= (in1<in2);
          end
-		3'bxxx : out <= in1 & in2;	// and
-		3'bxxx : out <= in1 | in2;	// or
-		3'bxxx : out <= in1 ^ in2;	// xor
-		endcase
+        3'b011 : out <= in1 & in2;	// and
+        3'b100 : out <= in1 | in2;	// or
+        3'b101 : out <= in1 ^ in2;	// xor
+		  endcase
   		
-       flag_zero <= (out == 0);	// to handle zero flag
+      flag_zero <= (out == 0);	// to handle zero flag
     end
 
 endmodule
