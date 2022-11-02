@@ -1,11 +1,10 @@
-module mem (addr, clk, din, dout, we, test_mem);
-
-	input [7 : 0] din;
-	input [7: 0] addr;
-	input clk, we;
-	output [7 : 0] dout;
-	output[7:0] test_mem;
-	
+module mem(
+	input[7:0] din,
+	input[7:0] addr,
+	input clk, we,
+	output[7:0] dout,
+	output[7:0] test_mem
+);
 	reg [7:0] memory[65535:0];
 	
 	initial
@@ -92,7 +91,7 @@ module mem (addr, clk, din, dout, we, test_mem);
 
 //    //Main
 		memory[16'h0000] <= 8'hbb; //MOVI D
-		memory[16'h0001] <= 8'h05;// CONSTANT 5
+		memory[16'h0001] <= 8'h05; // CONSTANT 5
 		memory[16'h0002] <= 8'hf9; // CALL 
 		memory[16'h0003] <= 8'hfc; // NOP
 		memory[16'h0004] <= 8'h02; // MSB OF ADDRESS
@@ -110,9 +109,9 @@ module mem (addr, clk, din, dout, we, test_mem);
 		memory[16'h0207] <= 8'h82;	// ADDI C
 		memory[16'h0208] <= 8'h01;	// CONSTANT 1
 		memory[16'h0209] <= 8'h02;	// MOV A C
-		memory[16'h020a] <= 8'h4b; // SUB D
-		memory[16'h020b] <= 8'he8;	//	JUMP IF C < D
-		memory[16'h020c] <= 8'h02; // MSB OF ADDRESS
+		memory[16'h020a] <= 8'h4b;  // SUB D
+		memory[16'h020b] <= 8'he8;	//JUMP IF C < D
+		memory[16'h020c] <= 8'h02;  // MSB OF ADDRESS
 		memory[16'h020d] <= 8'h04;	// LSB OF ADDRESS
 		memory[16'h020e] <= 8'hfb;	// RETURN	 	
 
