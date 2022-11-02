@@ -64,7 +64,7 @@ module cu(
 						end
 					4'b0001: // ST
 						begin
-							next_state = s5;
+							next_state = s4;
 						end
 					4'b0011: // MR
 						begin
@@ -132,14 +132,9 @@ module cu(
 			begin
 				MAR_we = 1;
 				MAR_mux = 1;
-				next_state = s23;
+				next_state = (cu_in[7:4]==4'b0000])?s23:s25;
 			end
-		s5:
-			begin
-				MAR_we = 1;
-				MAR_mux = 1;
-				next_state = s24;
-			end
+		
 		s6: // MR
 			begin
 				Acc_we = 1;
@@ -235,6 +230,23 @@ module cu(
 				select = 2'b00;
 				next_state = s0;
 			end
+		s25: //From s4 (ST)
+			begin
+				MAR_mux = 0;
+				MAR_we = 0;
+				select=2'b00;
+				MBR_mux=1;
+				MBR_we=1;
+				next_state=s26;
+			end
+		s26: //From s25 (ST)
+		begin
+			MBR_mux=0;
+			MBR_we=0;
+			RAM_we=1;
+			next_state=s0;
+		end
+		
     endcase
   end
 endmodule
