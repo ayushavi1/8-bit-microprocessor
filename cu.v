@@ -9,7 +9,7 @@ module CU(
 );
   reg [7:0]next_State;
   
-  parameter s0=0,s1=1,s2=2;
+  parameter s0=0,s1=1,s2=2,s3=3,s4=4,s5=5,s6=6,s7=7,s8=8,s9=9,s10=10,s20=11,s21=12,s22=13,s23=14,s24=15,s25=16,s26=17;
 
   always @(posedge CU_clk)
   begin
@@ -160,6 +160,8 @@ module CU(
 				Acc_we = 1;
 				next_State = s21;
 			end
+		s10:// HALT
+				next_State=s10;
 		s20: // From S6 (MR)
 			begin
 				RF_we = 1;
