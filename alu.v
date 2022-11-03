@@ -1,9 +1,8 @@
 // Code for ALU
-module alu(
+module ALU(
   input wire[7:0] in1, 
   input wire[7:0] in2, 
   input wire[2:0] mode,
-  input wire clk,
   
   output reg[7:0] out,
   output reg flag_zero,

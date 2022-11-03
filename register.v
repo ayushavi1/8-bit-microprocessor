@@ -1,7 +1,7 @@
 // Code your design here
-module register(
+module Register(
   input wire[1:0] select,
-  input reg_clk,
+  input Reg_clk,
   input RF_we,
 	input Acc_we,
   input wire[7:0] data_in,
@@ -11,7 +11,7 @@ module register(
 );
   reg[7:0] A, B, C, D;
   
-  always@(posedge reg_clk)
+  always@(posedge Reg_clk)
     begin
       case(select)
         2'b00: A <= (RF_we ? data_in: A); 

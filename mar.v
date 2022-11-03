@@ -1,12 +1,12 @@
 module MAR(
-    input[15:0] MAR_in,
-	output reg [15:0] MAR_out,
+    input[7:0] MAR_in,
+	output reg [7:0] MAR_out,
 	input MAR_we,
 	input MAR_clk,
 );
 	 
-	reg[15:0] MAR_out;
-	wire[15:0] MAR_next;
+	reg[7:0] MAR_out;
+	wire[7:0] MAR_next;
 	always @(posedge MAR_clk)
 	begin
 		MAR_out <= MAR_next;

@@ -1,6 +1,5 @@
 module PC(
 	input PC_clk,
-	input[7:0] PC_in,
 	input PC_inc,
     output reg[7:0] PC_out
 );
