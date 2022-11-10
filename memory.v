@@ -9,6 +9,10 @@ module memory(
     initial
     begin
         // Assembly Code
+		mem_reg[8'h00]<=8'b0010_00_01;
+		mem_reg[8'h01]<=8'b0010_01_01;
+		mem_reg[8'h02]<=8'b0100_00_01;
+		mem_reg[8'h04]<=8'b0011_00_00;
     end
 
     always @(posedge clk)

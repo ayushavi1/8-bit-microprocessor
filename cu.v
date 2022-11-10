@@ -66,7 +66,7 @@ module CU(
 						end
 					4'b0011: // MR
 						begin
-							next_State = s6;
+							next_State = (CU_in[1:0]==2'b00 && CU_in[3:2]==2'b00)?s10:s6;
 						end
 					4'b0010: // MI
 						begin
