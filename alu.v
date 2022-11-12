@@ -29,7 +29,7 @@ module ALU(
 	 begin
       case(Mode)
         3'b000 : {flag_carry, out} <= in1 + in2;		//sum
-        3'b001 : {flag_carry, out} <= in1 - in2;		//diff
+        3'b001 : {flag_carry, out} <= in2 - in1;		//diff
         3'b010 : // comp
          begin
            flag_zero <= (in1==in2);

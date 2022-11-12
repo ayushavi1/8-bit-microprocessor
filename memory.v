@@ -9,10 +9,33 @@ module memory(
     initial
     begin
         // Assembly Code
-		mem_reg[8'h00]<=8'b0010_00_01;
-		mem_reg[8'h01]<=8'b0010_01_01;
-		mem_reg[8'h02]<=8'b0100_00_01;
-		mem_reg[8'h04]<=8'b0011_00_00;
+
+        // Move Register Values
+        mem_reg[8'h00]<=8'b0010_00_01;
+        mem_reg[8'h01]<=8'b0011_10_00;
+        mem_reg[8'h02]<=8'b0011_00_00;
+
+        // Add 2 Numbers
+		// mem_reg[8'h00]<=8'b0010_00_01;
+		// mem_reg[8'h01]<=8'b0010_01_01;
+		// mem_reg[8'h02]<=8'b0100_00_01;
+		// mem_reg[8'h03]<=8'b0011_00_00;
+
+        // Add with immediate
+        // mem_reg[8'h00]<=8'b0010_00_01;
+        // mem_reg[8'h01]<=8'b1100_00_01;
+        // mem_reg[8'h02]<=8'b0011_00_00;
+
+        // Subtract 2 Numbers
+        // mem_reg[8'h00]<=8'b0010_00_01;
+        // mem_reg[8'h01]<=8'b0010_01_11;
+        // mem_reg[8'h02]<=8'b0101_00_01;
+        // mem_reg[8'h03]<=8'b0011_00_00;
+        
+        // Subtract with immediate
+        // mem_reg[8'h00]<=8'b0010_00_01;
+        // mem_reg[8'h01]<=8'b1101_00_01;
+        // mem_reg[8'h02]<=8'b0011_00_00;
     end
 
     always @(posedge clk)

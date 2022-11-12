@@ -14,7 +14,8 @@ module microprocessor(
 	output ram_we,
 	output[7:0] test_state,
 	output[7:0] test_A,test_B,test_C,test_D,test_Acc,
-	output[7:0] pc_out,ir_out
+	output[7:0] pc_out,ir_out,
+	output zero, carry
 );
 
     wire mbr_we,ir_we,pc_inc,rf_we,acc_we,mar_we,alu_mux,rf_mux,alu_out_mux,mar_mux,mbr_mux, data_imm, acc_imm; 
