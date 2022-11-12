@@ -3,13 +3,15 @@ module CU(
   // input wire zero, carry, 
   input wire CU_clk,
   output reg[2:0] Mode,
-  output reg[1:0] select,
-  output reg[7:0] State,
-  output reg MBR_we,IR_we,PC_inc,RF_we,Acc_we,MAR_we,RAM_we,ALU_mux,RF_mux, ALU_out_mux, MAR_mux, MBR_mux, Data_imm,Acc_imm, 
+  output reg[1:0] Select,
+  output[7:0] State,
+  output reg MBR_we,IR_we,PC_inc,RF_we,Acc_we,MAR_we,RAM_we,ALU_mux,RF_mux, ALU_out_mux, MAR_mux, MBR_mux, Data_imm,Acc_imm
 );
-  reg [7:0]next_State;
-  
-  parameter s0=0,s1=1,s2=2,s3=3,s4=4,s5=5,s6=6,s7=7,s8=8,s9=9,s10=10,s20=11,s21=12,s22=13,s23=14,s24=15,s25=16,s26=17;
+
+  parameter s0=0,s1=1,s2=2,s3=3,s4=4,s5=5,s6=6,s7=7,s8=8,s9=9,s10=10,s11=11,s12=12,s13=13,s14=14,s15=15,s16=16,s17=17;
+  reg[7:0] next_State;
+  reg[7:0] State=s0;
+ 
 
   always @(posedge CU_clk)
   begin
@@ -86,39 +88,39 @@ module CU(
 						end
 					4'b1101: // SBI
 						begin
-							next_State = s11;
+							next_State = s9;
 						end
 					4'b0111: // CM
 						begin
-							next_State = s12;
+							next_State = s8;
 						end
 					4'b1111: // CMI
 						begin
-							next_State = s13;
+							next_State = s9;
 						end
 					4'b0110: // ANR
 						begin
-							next_State = s14;
+							next_State = s8;
 						end
 					4'b1110: // ANI
 						begin
-							next_State = s15;
+							next_State = s9;
 						end
 					4'b1000: // ORR
 						begin
-							next_State = s16;
+							next_State = s8;
 						end
 					4'b1001: // ORI
 						begin
-							next_State = s17;
+							next_State = s9;
 						end
 					4'b1010: // XRR
 						begin
-							next_State = s18;
+							next_State = s8;
 						end
 					4'b1011: // XRI
 						begin
-							next_State = s19;
+							next_State = s9;
 						end
 					default: // Fetch next instruction
 						begin
@@ -130,7 +132,7 @@ module CU(
 			begin
 				MAR_we = 1;
 				MAR_mux = 1;
-				next_State = (CU_in[7:4]==4'b0000])?s23:s25;
+				next_State = (CU_in[7:4]==4'b0000)?s14:s16;
 			end
 		
 		s6: // MR
@@ -138,7 +140,7 @@ module CU(
 				Acc_we = 1;
 				ALU_out_mux = 1;
 				Select = CU_in[1:0];
-				next_State = s20;
+				next_State = s11;
 			end
 		s7: // MI
 			begin
@@ -152,17 +154,17 @@ module CU(
 				Acc_we = 1;
 				ALU_out_mux = 1;
 				Select = CU_in[1:0];
-				next_State = s21;
+				next_State = s12;
 			end
 		s9: // SMI
 			begin
 				Acc_imm = 1;
 				Acc_we = 1;
-				next_State = s21;
+				next_State = s12;
 			end
 		s10:// HALT
 				next_State=s10;
-		s20: // From S6 (MR)
+		s11: // From S6 (MR)
 			begin
 				RF_we = 1;
 				Acc_we = 0;
@@ -171,7 +173,7 @@ module CU(
 				Select = CU_in[3:2];
 				next_State = s0;
 			end
-		s21: // From S8 (SUM)
+		s12: // From S8 (SUM)
 			begin
 				Acc_imm=0;
 				Acc_we = 1;
@@ -204,9 +206,9 @@ module CU(
 					4'b1011: // XRI
 						Mode = 3'b101;
 				endcase
-				next_State = s22;
+				next_State = s13;
 			end
-		s22: // From S21 (SUM)
+		s13: // From S21 (SUM)
 			begin
 				Acc_we = 0;
 				ALU_mux = 0;
@@ -216,30 +218,30 @@ module CU(
 				Mode = 3'b111;
 				next_State = s0;
 			end
-		s23: // From S4 (LD)
+		s14: // From S4 (LD)
 			begin
 				MAR_mux = 0;
 				MAR_we = 0;
 				MBR_we = 1;
-				next_State = s24;
+				next_State = s15;
 			end
-		s24: // From S23 (LD)
+		s15: // From S23 (LD)
 			begin
 				RF_we = 1;
 				MBR_we = 0;
-				select = 2'b00;
+				Select = 2'b00;
 				next_State = s0;
 			end
-		s25: //From s4 (ST)
+		s16: //From s4 (ST)
 			begin
 				MAR_mux = 0;
 				MAR_we = 0;
-				select=2'b00;
+				Select=2'b00;
 				MBR_mux=1;
 				MBR_we=1;
-				next_State=s26;
+				next_State=s17;
 			end
-		s26: //From s25 (ST)
+		s17: //From s16 (ST)
 		begin
 			MBR_mux=0;
 			MBR_we=0;

@@ -1,7 +1,7 @@
 module PC(
 	input PC_clk,
 	input PC_inc,
-    output reg[7:0] PC_out
+    output[7:0] PC_out
 );
 	
 	

@@ -2,7 +2,7 @@
 module ALU(
   input wire[7:0] in1, 
   input wire[7:0] in2, 
-  input wire[2:0] mode,
+  input wire[2:0] Mode,
   
   output reg[7:0] out,
   output reg flag_zero,
@@ -24,10 +24,10 @@ module ALU(
       flag_carry <= 0;
     end
   
-  // modes for ALU
-  always @(in1 or in2 or mode)
+  // Modes for ALU
+  always @(in1 or in2 or Mode)
 	 begin
-      case(mode)
+      case(Mode)
         3'b000 : {flag_carry, out} <= in1 + in2;		//sum
         3'b001 : {flag_carry, out} <= in1 - in2;		//diff
         3'b010 : // comp

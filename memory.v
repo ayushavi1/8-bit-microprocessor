@@ -18,8 +18,8 @@ module memory(
     always @(posedge clk)
 	begin
 		if (we)
-			memory[addr] <= din;
+			mem_reg[addr] <= din;
 	end
 	
-	assign dout = memory[addr];
+	assign dout = mem_reg[addr];
 endmodule
