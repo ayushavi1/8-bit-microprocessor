@@ -17,30 +17,34 @@ module ALU(
   3 - 111111_11
   */
 
-  // initializing both carries
+  // initializing both flags
   initial
     begin
-      flag_zero <= 0;
-      flag_carry <= 0;
+      flag_zero = 1'b0;
+      flag_carry= 1'b0;
     end
   
   // Modes for ALU
-  always @(in1 or in2 or Mode)
-	 begin
-      case(Mode)
-        3'b000 : {flag_carry, out} <= in1 + in2;		//sum
-        3'b001 : {flag_carry, out} <= in2 - in1;		//diff
-        3'b010 : // comp
-         begin
-           flag_zero <= (in1==in2)?1'b1:1'b0;
-           flag_carry <= (in1<in2)?1'b1:1'b0;
-         end
-        3'b011 : out <= in1 & in2;	// and
-        3'b100 : out <= in1 | in2;	// or
-        3'b101 : out <= in1 ^ in2;	// xor
-		  endcase
-  		
-      flag_zero <= (out == 0);	// to handle zero flag
+	always @(in1 or in2 or Mode)
+		begin
+			case(Mode)
+				3'b000 : {flag_carry, out} = in1 + in2;		//sum
+				3'b001 : {flag_carry, out} = in2 - in1;		//diff
+				3'b010 : // comp
+						begin
+							flag_zero = (in1==in2)?1'b1:1'b0;
+							flag_carry = (in1>in2)?1'b1:1'b0;
+							out = in2;
+						end
+				3'b011 : out = in1 & in2;	// and
+				3'b100 : out = in1 | in2;	// or
+				3'b101 : out = in1 ^ in2;	// xor
+			endcase
+			
+			if(Mode!=3'b010 && Mode!=3'b111)
+				begin
+					flag_zero = (out == 8'b00000000)?1'b1:1'b0;	// to handle zero flag
+				end
     end
 
 endmodule

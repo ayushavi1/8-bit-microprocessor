@@ -50,10 +50,23 @@ module memory(
         // mem_reg[8'h04]<=8'b0011_00_00;
 
         // Compare 2 numbers
-        mem_reg[8'h00]<=8'b0010_00_01;
-		mem_reg[8'h01]<=8'b0010_01_01;
-		mem_reg[8'h02]<=8'b0111_00_01;
+        // mem_reg[8'h00]<=8'b0010_00_00;
+		// mem_reg[8'h01]<=8'b0010_01_01;
+		// mem_reg[8'h02]<=8'b0111_00_01;
+		// mem_reg[8'h03]<=8'b0011_00_00;
+		
+		// Compare 2 numbers with immediate
+        // mem_reg[8'h00]<=8'b0010_00_00;
+		// mem_reg[8'h01]<=8'b1111_00_01;
+		// mem_reg[8'h02]<=8'b0011_00_00;
+		
+		// And 2 Numbers
+		mem_reg[8'h00]<=8'b0010_00_10;
+		mem_reg[8'h01]<=8'b0010_01_11;
+		mem_reg[8'h02]<=8'b0110_00_01;
 		mem_reg[8'h03]<=8'b0011_00_00;
+		
+		
 
     end
 
