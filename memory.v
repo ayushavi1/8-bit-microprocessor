@@ -11,9 +11,9 @@ module memory(
         // Assembly Code
 
         // Move Register Values
-        mem_reg[8'h00]<=8'b0010_00_01;
-        mem_reg[8'h01]<=8'b0011_10_00;
-        mem_reg[8'h02]<=8'b0011_00_00;
+        // mem_reg[8'h00]<=8'b0010_00_01;
+        // mem_reg[8'h01]<=8'b0011_10_00;
+        // mem_reg[8'h02]<=8'b0011_00_00;
 
         // Add 2 Numbers
 		// mem_reg[8'h00]<=8'b0010_00_01;
@@ -36,6 +36,25 @@ module memory(
         // mem_reg[8'h00]<=8'b0010_00_01;
         // mem_reg[8'h01]<=8'b1101_00_01;
         // mem_reg[8'h02]<=8'b0011_00_00;
+
+        // Load a value in A
+        // mem_reg[8'h00]<=8'b0000_1011;
+        // mem_reg[8'h01]<=8'b0011_00_00;
+        // mem_reg[8'hFB]<=8'b10101010;
+
+        // Store a value from A to memory address
+        // mem_reg[8'h00]<=8'b0010_00_01;
+        // mem_reg[8'h01]<=8'b0001_1011;
+        // mem_reg[8'h02]<=8'b0010_00_00;
+        // mem_reg[8'h03]<=8'b0000_1011;
+        // mem_reg[8'h04]<=8'b0011_00_00;
+
+        // Compare 2 numbers
+        mem_reg[8'h00]<=8'b0010_00_01;
+		mem_reg[8'h01]<=8'b0010_01_01;
+		mem_reg[8'h02]<=8'b0111_00_01;
+		mem_reg[8'h03]<=8'b0011_00_00;
+
     end
 
     always @(posedge clk)

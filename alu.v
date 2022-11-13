@@ -32,8 +32,8 @@ module ALU(
         3'b001 : {flag_carry, out} <= in2 - in1;		//diff
         3'b010 : // comp
          begin
-           flag_zero <= (in1==in2);
-           flag_carry <= (in1<in2);
+           flag_zero <= (in1==in2)?1'b1:1'b0;
+           flag_carry <= (in1<in2)?1'b1:1'b0;
          end
         3'b011 : out <= in1 & in2;	// and
         3'b100 : out <= in1 | in2;	// or
