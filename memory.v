@@ -1,8 +1,8 @@
 module memory(
-    input [7:0] din,
+    input [7:0] mem_in,
     input [7:0] addr,
-    input clk, we, 
-    output [7:0] dout
+    input clk, rw, 
+    output [7:0] mem_out
 );
     reg [7:0] mem_reg[255:0];
 
@@ -28,7 +28,7 @@ module memory(
 
         // Subtract 2 Numbers
         // mem_reg[8'h00]<=8'b0010_00_01;
-        // mem_reg[8'h01]<=8'b0010_01_11;
+        // mem_reg[8'h01]<=8'b0010_01_01;
         // mem_reg[8'h02]<=8'b0101_00_01;
         // mem_reg[8'h03]<=8'b0011_00_00;
         
@@ -43,11 +43,11 @@ module memory(
         // mem_reg[8'hFB]<=8'b10101010;
 
         // Store a value from A to memory address
-        // mem_reg[8'h00]<=8'b0010_00_01;
-        // mem_reg[8'h01]<=8'b0001_1011;
-        // mem_reg[8'h02]<=8'b0010_00_00;
-        // mem_reg[8'h03]<=8'b0000_1011;
-        // mem_reg[8'h04]<=8'b0011_00_00;
+        mem_reg[8'h00]<=8'b0010_00_01;
+        mem_reg[8'h01]<=8'b0001_1011;
+        mem_reg[8'h02]<=8'b0010_00_00;
+        mem_reg[8'h03]<=8'b0000_1011;
+        mem_reg[8'h04]<=8'b0011_00_00;
 
         // Compare 2 numbers
         // mem_reg[8'h00]<=8'b0010_00_00;
@@ -61,10 +61,10 @@ module memory(
 		// mem_reg[8'h02]<=8'b0011_00_00;
 		
 		// And 2 Numbers
-		mem_reg[8'h00]<=8'b0010_00_10;
-		mem_reg[8'h01]<=8'b0010_01_11;
-		mem_reg[8'h02]<=8'b0110_00_01;
-		mem_reg[8'h03]<=8'b0011_00_00;
+		// mem_reg[8'h00]<=8'b0010_00_10;
+		// mem_reg[8'h01]<=8'b0010_01_11;
+		// mem_reg[8'h02]<=8'b0110_00_01;
+		// mem_reg[8'h03]<=8'b0011_00_00;
 		
 		
 
@@ -72,9 +72,9 @@ module memory(
 
     always @(posedge clk)
 	begin
-		if (we)
-			mem_reg[addr] <= din;
+		if (rw)
+			mem_reg[addr] <= mem_in;
 	end
 	
-	assign dout = mem_reg[addr];
+	assign mem_out = mem_reg[addr];
 endmodule

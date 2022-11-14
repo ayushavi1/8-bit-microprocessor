@@ -1,12 +1,11 @@
-// Code for ALU
 module ALU(
-  input wire[7:0] in1, 
-  input wire[7:0] in2, 
+  input wire[7:0] In1, 
+  input wire[7:0] In2, 
   input wire[2:0] Mode,
   
-  output reg[7:0] out,
-  output reg flag_zero,
-  output reg flag_carry
+  output reg[7:0] Out,
+  output reg Flag_Zero,
+  output reg Flag_Carry
 );
   
   /*
@@ -20,30 +19,30 @@ module ALU(
   // initializing both flags
   initial
     begin
-      flag_zero = 1'b0;
-      flag_carry= 1'b0;
+      Flag_Zero = 1'b0;
+      Flag_Carry= 1'b0;
     end
   
   // Modes for ALU
-	always @(in1 or in2 or Mode)
+	always @(In1 or In2 or Mode)
 		begin
 			case(Mode)
-				3'b000 : {flag_carry, out} = in1 + in2;		//sum
-				3'b001 : {flag_carry, out} = in2 - in1;		//diff
+				3'b000 : {Flag_Carry, Out} = In1 + In2;		//sum
+				3'b001 : {Flag_Carry, Out} = In2 - In1;		//diff
 				3'b010 : // comp
 						begin
-							flag_zero = (in1==in2)?1'b1:1'b0;
-							flag_carry = (in1>in2)?1'b1:1'b0;
-							out = in2;
+							Flag_Zero = (In1==In2)?1'b1:1'b0;
+							Flag_Carry = (In1>In2)?1'b1:1'b0;
+							Out = In2;
 						end
-				3'b011 : out = in1 & in2;	// and
-				3'b100 : out = in1 | in2;	// or
-				3'b101 : out = in1 ^ in2;	// xor
+				3'b011 : Out = In1 & In2;	// and
+				3'b100 : Out = In1 | In2;	// or
+				3'b101 : Out = In1 ^ In2;	// xor
 			endcase
 			
 			if(Mode!=3'b010 && Mode!=3'b111)
 				begin
-					flag_zero = (out == 8'b00000000)?1'b1:1'b0;	// to handle zero flag
+					Flag_Zero = (Out == 8'b00000000)?1'b1:1'b0;	// to handle zero flag
 				end
     end
 

@@ -6,7 +6,7 @@ module PC(
 	
 	
 	wire[7:0] PC_next;
-	reg[7:0] PC_out = 8'h00;
+	reg[7:0] PC_out = 8'b00000000;
 	
 	always @(posedge PC_clk)
 	begin

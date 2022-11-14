@@ -1,7 +1,7 @@
 module MAR(
     input[7:0] MAR_in,
 	output reg [7:0] MAR_out,
-	input MAR_we,
+	input MAR_rw,
 	input MAR_clk
 );
 	 
@@ -10,5 +10,5 @@ module MAR(
 	begin
 		MAR_out <= MAR_next;
     end
-	assign MAR_next = MAR_we ? MAR_in : MAR_out;
+	assign MAR_next = MAR_rw ? MAR_in : MAR_out;
 endmodule
